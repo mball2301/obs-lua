@@ -43,12 +43,12 @@ function refresh_preview_browsers()
 
     if scene_items ~= nil then
         for _, scene_item in ipairs(scene_items) do
-			print("in for loop ")
+--			print("in for loop ")
             local source = obs.obs_sceneitem_get_source(scene_item)
             local source_id = obs.obs_source_get_unversioned_id(source)
-			print ("source_id " .. source_id)
+--			print ("source_id " .. source_id)
 			if source_id == "browser_source" then
-				print ("refresh browser source")
+--				print ("refresh browser source")
 				local settings = obs.obs_source_get_settings(source)
 				local fps = obs.obs_data_get_int(settings, "fps")
 				if fps % 2 == 0 then
@@ -59,13 +59,14 @@ function refresh_preview_browsers()
 				obs.obs_source_update(source, settings)
 				obs.obs_data_release(settings)
             end
-			print ("out of settings change")
+--			print ("out of settings change")
         end
     end
-
-	print ("release source")
+--	print ("release scene Items")
+	obs.sceneitem_list_release(scene_items)
+--	print ("release source")
 	obs.obs_source_release(scenesource)
-	print ("release sources")
+--	print ("release sources")
 	obs.source_list_release(sources)
 end
 
